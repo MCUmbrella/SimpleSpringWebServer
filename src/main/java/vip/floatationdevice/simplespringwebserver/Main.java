@@ -12,8 +12,10 @@ public class Main
     public void onStartup()
     {
         UserManager.load();
-        if(!UserManager.hasUser("root")) UserManager.putUser("root", "123456", "Administrator");
-        if(!UserManager.hasUser("user")) UserManager.putUser("user", "'i[l3P&SfYwHJ.6+jYuv?K.c)etsGDeh/\\V\\.v2tQEX8Sn]YJUR%\"ziEb_;E%\"0O^f-lyY|LWma^I-57M738]134WS6#$0%K8A6gA)g1kGt4\\G{0ZOm(c#y8S|Vc=={>", "MCUmbrella");
+        if(!UserManager.hasUser("root"))
+            UserManager.putUser("root", "123456", "Administrator");
+        if(!UserManager.hasUser("user"))
+            UserManager.putUser("user", "'i[l3P&SfYwHJ.6+jYuv?K.c)etsGDeh/\\V\\.v2tQEX8Sn]YJUR%\"ziEb_;E%\"0O^f-lyY|LWma^I-57M738]134WS6#$0%K8A6gA)g1kGt4\\G{0ZOm(c#y8S|Vc=={>", "MCUmbrella");
     }
 
     @PreDestroy

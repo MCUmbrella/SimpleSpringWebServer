@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable
 {
-    public static final long serialVersionUID = Long.MAX_VALUE;
+    public static final long serialVersionUID = 1L;
     /**
      * The ID of the user.
      */
@@ -15,13 +15,13 @@ public class User implements Serializable
     /**
      * The hash of the password.
      */
-    public int passHash;
+    public byte[] passHash;
     /**
      * The user's display name.
      */
     public String displayName;
 
-    public User(String userId, int passHash, String displayName)
+    public User(String userId, byte[] passHash, String displayName)
     {
         this.userId = userId;
         this.passHash = passHash;

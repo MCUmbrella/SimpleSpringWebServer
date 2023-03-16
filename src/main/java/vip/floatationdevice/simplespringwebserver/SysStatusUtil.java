@@ -4,13 +4,11 @@ import com.sun.management.OperatingSystemMXBean;
 
 import java.lang.management.ManagementFactory;
 import java.util.Calendar;
-import java.util.Random;
 
 public class SysStatusUtil
 {
     private static final OperatingSystemMXBean os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
     private static final Runtime rt = Runtime.getRuntime();
-    private static final Random r = new Random();
 
     public static String getSysMemMax(){return String.valueOf(os.getTotalPhysicalMemorySize() / 1024 / 1024);}
 

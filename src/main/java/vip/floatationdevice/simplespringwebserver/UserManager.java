@@ -2,8 +2,12 @@ package vip.floatationdevice.simplespringwebserver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import oshi.SystemInfo;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -13,6 +17,58 @@ public class UserManager
 {
     private final static Logger l = LoggerFactory.getLogger(UserManager.class);
     private final static ConcurrentHashMap<String, User> userList = new ConcurrentHashMap<>();
+    private static final String CPUID = new SystemInfo().getHardware().getProcessor().getProcessorIdentifier().getProcessorID();
+    private static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
+
+    private static class UserListContainer implements Serializable
+    {
+        public static final long serialVersionUID = 1L;
+        public ConcurrentHashMap<String, User> userList;
+    }
+
+    private static byte[] hex2bytes(String s)
+    {
+        s = s.toUpperCase();
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray())
+            for(char cc : HEX_CHARS)
+                if(c == cc) sb.append(c);
+        String ss = sb.toString();
+        int l = ss.length();
+        byte[] b = new byte[l / 2];
+        for(int i = 0; i < l; i += 2)
+        {
+            b[i / 2] = (byte) ((Character.digit(ss.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
+        }
+        return b;
+    }
+
+
+    private static String bytes2Hex(byte[] bs)
+    {
+        StringBuilder sb = new StringBuilder();
+        for(byte b : bs)
+            sb.append(String.format("%02x", b));
+        return sb.toString();
+    }
+
+    private static byte[] hashPassword(String password)
+    {
+        byte[] hash;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(hex2bytes(CPUID));
+            hash = md.digest(password.getBytes());
+        }
+        catch(NoSuchAlgorithmException e)
+        {
+            l.error("SHA-512 is not supported, password will be stored in plain text");
+            hash = password.getBytes();
+        }
+        return hash;
+    }
 
     /**
      * Check if a user with the specified ID is in the database.
@@ -32,13 +88,9 @@ public class UserManager
      */
     public static boolean putUser(String userId, String password, String displayName)
     {
-        if(hasUser(userId))
-        {
-            userList.put(userId, new User(userId, password.hashCode(), displayName));
-            return true;
-        }
-        userList.put(userId, new User(userId, password.hashCode(), displayName));
-        return false;
+        boolean userExists = hasUser(userId);
+        userList.put(userId, new User(userId, hashPassword(password), displayName));
+        return userExists;
     }
 
     /**
@@ -50,7 +102,7 @@ public class UserManager
     public static boolean verify(String userId, String password)
     {
         return userId != null && password != null &&
-                hasUser(userId) && userList.get(userId).passHash == password.hashCode();
+                hasUser(userId) && Arrays.equals(userList.get(userId).passHash, hashPassword(password));
     }
 
     /**
@@ -126,13 +178,15 @@ public class UserManager
         catch(Exception e)
         {
             l.error("Loading user database: FAIL - " + e);
+            try
+            {
+                File usersDat = new File("users.dat");
+                if(usersDat.exists() && usersDat.isFile())
+                    if(usersDat.renameTo(new File("users.dat.OLD")))
+                        l.error("Renamed problematic data file to 'users.dat.OLD'");
+            }
+            catch(Exception ee) {}
             return false;
         }
-    }
-
-    private static class UserListContainer implements Serializable
-    {
-        public static final long serialVersionUID = Long.MAX_VALUE;
-        public ConcurrentHashMap<String, User> userList;
     }
 }
