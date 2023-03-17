@@ -27,5 +27,12 @@ public class Main
     public static void main(String[] args)
     {
         SpringApplication.run(Main.class, args);
+/*
+        String id = SessionManager.generateSession("root");
+        if(SessionManager.hasSession("root", id)) System.out.println("success");
+        SessionManager.destroySession("root");
+        if(SessionManager.hasSession("root", id)) System.out.println("fail");
+        if(SessionManager.destroySession("root")) System.out.println("fail");
+*/
     }
 }

@@ -44,15 +44,6 @@ public class UserManager
         return b;
     }
 
-
-    private static String bytes2Hex(byte[] bs)
-    {
-        StringBuilder sb = new StringBuilder();
-        for(byte b : bs)
-            sb.append(String.format("%02x", b));
-        return sb.toString();
-    }
-
     private static byte[] hashPassword(String password)
     {
         byte[] hash;
