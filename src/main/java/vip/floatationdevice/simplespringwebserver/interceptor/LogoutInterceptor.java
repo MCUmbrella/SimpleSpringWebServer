@@ -11,21 +11,23 @@ import org.springframework.web.servlet.ModelAndView;
 import vip.floatationdevice.simplespringwebserver.SessionManager;
 
 @Component
-public class UserHomePageInterceptor implements HandlerInterceptor
+public class LogoutInterceptor implements HandlerInterceptor
 {
-    private final static Logger l = LoggerFactory.getLogger(UserHomePageInterceptor.class);
+    private final static Logger l = LoggerFactory.getLogger(LogoutInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
-        if("/home".equals(request.getRequestURI()))
+        if("/logout".equals(request.getRequestURI()))
         {
             if(request.getCookies() != null)
                 for(Cookie c : request.getCookies())
                     if(c.getName().equals("ssws-session") && SessionManager.hasSession(c.getValue()))
-                        return true;
-            l.warn("Unauthorized access to /home: addr=" + request.getRemoteAddr());
-            response.sendError(403);
+                    {
+                        l.info(SessionManager.getUserId(c.getValue()) + " logout");
+                        SessionManager.destroySession(c.getValue());
+                    }
+            response.sendRedirect("/");
             return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);

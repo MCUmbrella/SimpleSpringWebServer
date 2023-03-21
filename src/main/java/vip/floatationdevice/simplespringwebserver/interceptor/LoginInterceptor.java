@@ -26,20 +26,20 @@ public class LoginInterceptor implements HandlerInterceptor
             if(!UserManager.verify(userId, password))
             {
                 l.warn("Login fail: user=" + userId + ", password=" + password);
-                response.sendRedirect("/greeting?name=unauthorized_user");
+                response.sendError(403);
                 return false;
             }
             l.info("Login success: user=" + userId + ", password=" + password);
             if(request.getCookies() != null)
                 for(Cookie c : request.getCookies())
-                    if(c.getName().equals("ssws-session") && SessionManager.hasSession(userId, c.getValue()))
+                    if(c.getName().equals("ssws-session") && SessionManager.hasSession(c.getValue()))
                     {
-                        response.sendRedirect("/greeting");
-                        return true;
+                        response.sendRedirect("/home");
+                        return false;
                     }
             response.addCookie(new Cookie("ssws-session", SessionManager.generateSession(userId)));
-            response.sendRedirect("/greeting?name=" + userId);
-            return true;
+            response.sendRedirect("/home");
+            return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }

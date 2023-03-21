@@ -1,9 +1,12 @@
 package vip.floatationdevice.simplespringwebserver.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import vip.floatationdevice.simplespringwebserver.SessionManager;
 import vip.floatationdevice.simplespringwebserver.SysStatusUtil;
 import vip.floatationdevice.simplespringwebserver.UserManager;
 
@@ -11,8 +14,12 @@ import vip.floatationdevice.simplespringwebserver.UserManager;
 public class UserHomePageController
 {
     @GetMapping("/home")
-    public String action(@RequestParam(name = "username") String userId, @RequestParam(name = "password") String password, Model model)
+    public String action(HttpServletRequest request, HttpServletResponse response, Model model)
     {
+        String userId = null;
+        for(Cookie c : request.getCookies())
+            if(c.getName().equals("ssws-session"))
+                userId = SessionManager.getUserId(c.getValue());
         model.addAttribute("USERID", userId)
                 .addAttribute("USERNAME", UserManager.getDisplayName(userId))
                 .addAttribute("SYSTIME", SysStatusUtil.getTime())

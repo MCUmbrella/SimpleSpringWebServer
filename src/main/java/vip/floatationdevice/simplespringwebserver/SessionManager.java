@@ -24,22 +24,27 @@ public class SessionManager
         byte[] b = new byte[64];
         r.nextBytes(b);
         String sessionId = bytes2Hex(b);
-        sessionList.put(userId, sessionId);
+        sessionList.put(sessionId, userId);
         l.info("Create session for " + userId + ", id=" + sessionId);
         return sessionId;
     }
 
-    public static boolean destroySession(String userId)
+    public static boolean destroySession(String sessionId)
     {
-        boolean sessionExists = sessionList.remove(userId) != null;
+        boolean sessionExists = sessionList.remove(sessionId) != null;
         if(sessionExists)
-            l.info("Removed session for " + userId);
+            l.info("Removed session for " + sessionId);
         return sessionExists;
     }
 
-    public static boolean hasSession(String userId, String sessionId)
+    public static boolean hasSession(String sessionId)
     {
-        return sessionList.containsKey(userId) && sessionList.get(userId).equals(sessionId);
+        return sessionList.containsKey(sessionId);
+    }
+
+    public static String getUserId(String sessionId)
+    {
+        return sessionList.get(sessionId);
     }
 
     private static String bytes2Hex(byte[] bs)
