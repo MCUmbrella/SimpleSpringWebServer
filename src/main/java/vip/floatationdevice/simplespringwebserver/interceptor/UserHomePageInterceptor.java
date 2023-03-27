@@ -1,6 +1,5 @@
 package vip.floatationdevice.simplespringwebserver.interceptor;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -20,10 +19,8 @@ public class UserHomePageInterceptor implements HandlerInterceptor
     {
         if("/home".equals(request.getRequestURI()))
         {
-            if(request.getCookies() != null)
-                for(Cookie c : request.getCookies())
-                    if(c.getName().equals("ssws-session") && SessionManager.hasSession(c.getValue()))
-                        return true;
+            if(SessionManager.hasSession(SessionManager.getSessionId(request.getCookies())))
+                return true;
             l.warn("Unauthorized access to /home: addr=" + request.getRemoteAddr());
             response.sendRedirect("/login.html");
             return false;

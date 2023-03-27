@@ -1,5 +1,6 @@
 package vip.floatationdevice.simplespringwebserver;
 
+import jakarta.servlet.http.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +38,18 @@ public class SessionManager
         return sessionExists;
     }
 
+    public static String getSessionId(Cookie... cookies)
+    {
+        if(cookies != null)
+            for(Cookie c : cookies)
+                if("ssws-session".equals(c.getName()))
+                    return c.getValue();
+        return null;
+    }
+
     public static boolean hasSession(String sessionId)
     {
-        return sessionList.containsKey(sessionId);
+        return sessionId != null && sessionList.containsKey(sessionId);
     }
 
     public static String getUserId(String sessionId)

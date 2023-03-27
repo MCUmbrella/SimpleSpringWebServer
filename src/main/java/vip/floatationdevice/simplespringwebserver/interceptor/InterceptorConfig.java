@@ -11,15 +11,12 @@ public class InterceptorConfig implements WebMvcConfigurer
     @Autowired
     UserHomePageInterceptor userHomePageInterceptor;
     @Autowired
-    LoginInterceptor loginInterceptor;
-    @Autowired
-    LogoutInterceptor logoutInterceptor;
+    LoginLogoutInterceptor loginLogoutInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry)
     {
         registry.addInterceptor(userHomePageInterceptor);
-        registry.addInterceptor(loginInterceptor);
-        registry.addInterceptor(logoutInterceptor);
+        registry.addInterceptor(loginLogoutInterceptor);
     }
 }

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Error</title>
-    <link type="text/css" rel="stylesheet" href="/std.css" />
+    <link type="text/css" rel="stylesheet" href="/std.css"/>
 </head>
 <body>
-    <h1 align="center">SOMETHING WENT WRONG</h1>
-    <hr width=80% />
-    <p align="center" th:text="'Error code: ' + ${ERR_CODE}"></p>
-    <p align="center" th:text="${ERR_MSG}"></p>
-    <table align="center" width=62%><tr><td>
-        <h2>Stacktrace:</h2>
-        <pre th:text="${ERR_TRACE}"></pre>
-    </td></tr></table>
-    <p align="center"><a href="/">Go back</a></p>
+<h1 align="center">SOMETHING WENT WRONG</h1>
+<hr width=80%/>
+<p align="center" th:text="'Error code: ' + ${ERR_CODE}"></p>
+<p align="center" th:text="${ERR_MSG}"></p>
+<table align="center" width=62%>
+    <tr>
+        <td>
+            <h2>Stacktrace:</h2>
+            <pre th:text="${ERR_TRACE}"></pre>
+        </td>
+    </tr>
+</table>
+<p align="center"><a href="/">Go back</a></p>
 </body>
 </html>

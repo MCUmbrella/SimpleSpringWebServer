@@ -12,17 +12,19 @@ import vip.floatationdevice.simplespringwebserver.SessionManager;
 import vip.floatationdevice.simplespringwebserver.UserManager;
 
 @Component
-public class LoginInterceptor implements HandlerInterceptor
+public class LoginLogoutInterceptor implements HandlerInterceptor
 {
-    private final static Logger l = LoggerFactory.getLogger(LoginInterceptor.class);
+    private final static Logger l = LoggerFactory.getLogger(LoginLogoutInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
+        String sessionId = SessionManager.getSessionId(request.getCookies());
+        String userId = request.getParameter("username");
+        String password = request.getParameter("password");
+        // login
         if("/l".equals(request.getRequestURI()))
         {
-            String userId = request.getParameter("username");
-            String password = request.getParameter("password");
             if(!UserManager.verify(userId, password))
             {
                 l.warn("Login fail: user=" + userId + ", password=" + password);
@@ -30,15 +32,26 @@ public class LoginInterceptor implements HandlerInterceptor
                 return false;
             }
             l.info("Login success: user=" + userId + ", password=" + password);
-            if(request.getCookies() != null)
-                for(Cookie c : request.getCookies())
-                    if(c.getName().equals("ssws-session") && SessionManager.hasSession(c.getValue()))
-                    {
-                        response.sendRedirect("/home");
-                        return false;
-                    }
+            // already logged in?
+            if(SessionManager.hasSession(sessionId) && UserManager.hasUser(SessionManager.getUserId(sessionId)))
+            {
+                response.sendRedirect("/home");
+                return false;
+            }
+            // fresh login?
             response.addCookie(new Cookie("ssws-session", SessionManager.generateSession(userId)));
             response.sendRedirect("/home");
+            return false;
+        }
+        // logout
+        if("/logout".equals(request.getRequestURI()))
+        {
+            if(SessionManager.hasSession(sessionId))
+            {
+                l.info(SessionManager.getUserId(sessionId) + " logout");
+                SessionManager.destroySession(sessionId);
+            }
+            response.sendRedirect("/");
             return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);

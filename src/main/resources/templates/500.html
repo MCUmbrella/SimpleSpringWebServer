@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8" />
-	<title>500</title>
-	<link type="text/css" rel="stylesheet" href="/std.css" />
+    <meta charset="UTF-8"/>
+    <title>500</title>
+    <link type="text/css" rel="stylesheet" href="/std.css"/>
 </head>
 <body>
-	<h1 align="center">INTERNAL SERVER ERROR</h1>
-	<hr width=80% />
-	<p align="center">
-		The server encountered a problem while processing your request.<br />
-		If you think this shouldn't happen, contact the administrator of this site via ${WEBMASTER_EMAIL_ADDR}
-	</p>
-	<p align="center" th:text="'Error code: ' + ${ERR_CODE}"></p>
-	<p align="center" th:text="${ERR_MSG}"></p>
-	<table align="center" width=62%><tr><td>
-		<h2>Stacktrace:</h2>
-		<pre th:text="${ERR_TRACE}"></pre>
-	</td></tr></table>
-	<p align="center"><a href="/">Go back</a></p>
+<h1 align="center">INTERNAL SERVER ERROR</h1>
+<hr width=80%/>
+<p align="center">
+    The server encountered a problem while processing your request.<br/>
+    If you think this shouldn't happen, contact the administrator of this site via ${WEBMASTER_EMAIL_ADDR}
+</p>
+<p align="center" th:text="'Error code: ' + ${ERR_CODE}"></p>
+<p align="center" th:text="${ERR_MSG}"></p>
+<table align="center" width=62%>
+    <tr>
+        <td>
+            <h2>Stacktrace:</h2>
+            <pre th:text="${ERR_TRACE}"></pre>
+        </td>
+    </tr>
+</table>
+<p align="center"><a href="/">Go back</a></p>
 </body>
 </html>
