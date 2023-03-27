@@ -25,7 +25,7 @@ public class UserHomePageInterceptor implements HandlerInterceptor
                     if(c.getName().equals("ssws-session") && SessionManager.hasSession(c.getValue()))
                         return true;
             l.warn("Unauthorized access to /home: addr=" + request.getRemoteAddr());
-            response.sendError(403);
+            response.sendRedirect("/login.html");
             return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);

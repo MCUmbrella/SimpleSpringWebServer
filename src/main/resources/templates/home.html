@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8" />
-	<title>User home</title>
-	<link type="text/css" rel="stylesheet" href="/std.css" />
+    <meta charset="UTF-8"/>
+    <title>SimpleSpringWebServer</title>
+    <link type="text/css" rel="stylesheet" href="/std.css"/>
 </head>
 <body>
-	<h1 align="center">User home page</h1>
-	<hr width=80% />
-	<table style="border: 0;width: 100%;">
-	<tr>
-		<td style="width: 19%;"></td>
-		<td style="width: 62%; background: rgba(0,0,0,.3); padding: 30px;">
-			<h2 th:text="'Welcome, ' + ${USERNAME} + '!'"></h2>
-			<p th:text="'System time: ' + ${SYSTIME}"></p>
-			<p th:text="'System memory: ' + ${SYSMEM} + ' / ' + ${SYSMEM_MAX} + ' MB'"></p>
-			<p th:text="'JVM memory: ' + ${JVMMEM} + ' / ' + ${JVMMEM_MAX} + ' MB'"></p>
-			<p th:text="'System CPU usage: ' + ${SYSCPU}"></p>
-			<p th:text="'JVM CPU usage: ' + ${JVMCPU}"></p>
-			<a href="/">Main page</a><br />
-			<a href="/logout">Logout</a><br />
-			<a href="/chdn">Change display name</a><br />
-			<a href="/chpw">Change password</a><br />
-		</td>
-		<td style="width: 19%;"></td>
-	</tr>
-	</table>
+<div style="background-color:rgba(0,0,0,.3); position:fixed; top:0; left:0; z-index:1; width:100%;">
+    <table width="100%">
+        <tr>
+            <td width="50%"><h2>&nbsp;<a href="/" style="color:white">ACCOUNT</a></h2></td>
+            <td style="text-align:center"><a href="/about">About</a></td>
+            <td style="text-align:center"><a href="/posts">Posts</a></td>
+            <td style="text-align:center"><a href="/home">Account</a></td>
+        </tr>
+    </table>
+</div>
+<h1>&nbsp;</h1>
+<hr width=80% style="border:dashed 2px"/>
+<table style="border:0px; width:100%">
+    <tr>
+        <td style="width:19%"></td>
+        <td style="width:62%; background:rgba(0,0,0,.3); padding:30px">
+            <h2 th:text="'Welcome, ' + ${USERNAME} + '!'"></h2>
+            <p th:text="'System time: ' + ${SYSTIME}"></p>
+            <p th:text="'System memory: ' + ${SYSMEM} + ' / ' + ${SYSMEM_MAX} + ' MB'"></p>
+            <p th:text="'JVM memory: ' + ${JVMMEM} + ' / ' + ${JVMMEM_MAX} + ' MB'"></p>
+            <p th:text="'System CPU usage: ' + ${SYSCPU}"></p>
+            <p th:text="'JVM CPU usage: ' + ${JVMCPU}"></p>
+            <a href="/">Main page</a><br/>
+            <a href="/logout">Logout</a><br/>
+            <a href="/chdn">Change display name</a><br/>
+            <a href="/chpw">Change password</a><br/>
+        </td>
+        <td style="width:19%"></td>
+    </tr>
+</table>
 </body>
 </html>
