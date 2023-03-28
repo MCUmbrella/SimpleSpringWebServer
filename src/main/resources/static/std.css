@@ -44,3 +44,17 @@ body {
 	font-family: sans-serif;
 	background: linear-gradient(#141e30, #243b55);
 }
+.navbar {
+    background-color: rgba(0,0,0,.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width:100%;
+}
+.navbar table {
+    width: 100%;
+}
+.navbar a {
+    padding: 8px;
+}
