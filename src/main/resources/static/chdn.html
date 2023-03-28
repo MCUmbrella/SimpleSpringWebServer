@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8"/>
     <title>SimpleSpringWebServer</title>
@@ -18,15 +18,20 @@
 </div>
 <h1>&nbsp;</h1>
 <hr width=80% style="border:dashed 2px"/>
-<table style="border: 0;width: 100%;">
+<table style="border:0px; width:100%">
     <tr>
-        <td style="width: 19%;"></td>
-        <td style="width: 62%; background: rgba(0,0,0,.3); padding:30px;">
-            <h1>SUCCESS</h1>
-            <hr/>
-            <h2 th:text="'Your display name has been changed to: ' + ${NEW_NAME}"></h2>
+        <td style="width:19%"></td>
+        <td align="center" style="width:62%;">
+            <div style="background:rgba(0,0,0,.3); position:absolute; top:30%; left:50%; transform:translate(-50%,-50%); padding:30px">
+                <h1>Change display name</h1>
+                <form action="/chdn" method="post">
+                    <label for="newname">Enter your new display name:</label><br/><br/>
+                    <input id="newname" name="displayname" type="text" required=""/><br/><br/>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </td>
-        <td style="width: 19%;"></td>
+        <td style="width:19%;"></td>
     </tr>
 </table>
 </body>

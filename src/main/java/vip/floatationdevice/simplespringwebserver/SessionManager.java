@@ -54,6 +54,7 @@ public class SessionManager
 
     public static String getUserId(String sessionId)
     {
+        if(sessionId == null) return null;
         return sessionList.get(sessionId);
     }
 
