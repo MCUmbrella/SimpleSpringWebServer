@@ -5,49 +5,42 @@
     <title>SimpleSpringWebServer</title>
     <link rel="preload" href="/std.css" as="style"/>
     <link type="text/css" rel="stylesheet" href="/std.css"/>
-    <style type="text/css">
-  label {
-   display: block;
-   margin-bottom: 10px;
-  }
-  input[type="password"] {
-   padding: 5px;
-   border-radius: 5px;
-   border: 1px solid #ccc;
-   width: 200px;
-  }
-  button {
-   padding: 5px 10px;
-   background-color: #4CAF50;
-   color: white;
-   border-radius: 5px;
-   border: none;
-   cursor: pointer;
-  }
-    </style>
     <script type="text/javascript">
      function validateForm() {
       var newPass = document.getElementById("newpass").value;
       var confirmPass = document.getElementById("confirmpass").value;
       if (newPass != confirmPass) {
-       alert("两次输入的新密码不一致！");
+       alert("New password confirmation failed");
        return false;
       }
-      return true; // 表单提交
+      return true;
      }
     </script>
 </head>
 <body>
-<div style="background:rgba(0,0,0,.3); position:absolute; top:30%; left:50%; transform:translate(-50%,-50%); padding:30px">
-    <h1>更改密码</h1>
+<div class="navbar">
+    <table>
+        <tr>
+            <td width="50%"><h2>&nbsp;<a href="/" style="color:white">PASSWORD</a></h2></td>
+            <td style="text-align:center"><a href="/about">About</a></td>
+            <td style="text-align:center"><a href="/posts">Posts</a></td>
+            <td style="text-align:center"><a href="/home">Account</a></td>
+        </tr>
+    </table>
+</div>
+<h1>&nbsp;</h1>
+<hr width=80% style="border:dashed 2px"/>
+<div style="background:rgba(0,0,0,.3); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); padding:30px">
+    <h1>Change password</h1>
     <form onsubmit="return validateForm()" action="/chpw" method="post">
-        <label for="oldpass">旧密码：</label>
-        <input type="password" id="oldpass" name="oldpass" required>
-        <label for="newpass">新密码：</label>
-        <input type="password" id="newpass" name="newpass" required>
-        <label for="confirmpass">确认新密码：</label>
-        <input type="password" id="confirmpass" name="confirmpass" required>
-        <button type="submit">提交</button>
+        <label for="oldpass">Old password:</label>
+        <input type="password" id="oldpass" name="oldpass" required><br/>
+        <label for="newpass">New password:</label>
+        <input type="password" id="newpass" name="newpass" required><br/>
+        <label for="confirmpass">Retype new password:</label>
+        <input type="password" id="confirmpass" required><br/>
+        <br/>
+        <button type="submit">Submit</button>
     </form>
 </div>
 </body>

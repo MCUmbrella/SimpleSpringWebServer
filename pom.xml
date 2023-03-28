@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.4</version>
+		<version>3.0.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>vip.floatationdevice</groupId>
 	<artifactId>simple-spring-web-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>serving-web-content</name>
-	<description>Demo project for Spring Boot</description>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>SimpleSpringWebServer</name>
+	<description>No actual use at the moment, can be anything in the future</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
