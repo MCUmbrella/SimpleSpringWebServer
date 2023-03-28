@@ -30,18 +30,30 @@
 </div>
 <h1>&nbsp;</h1>
 <hr width=80% style="border:dashed 2px"/>
-<div style="background:rgba(0,0,0,.3); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); padding:30px">
+<div class="contentbox">
     <h1>Change password</h1>
+    <hr/>
+    <br/>
     <form onsubmit="return validateForm()" action="/chpw" method="post">
-        <label for="oldpass">Old password:</label>
-        <input type="password" id="oldpass" name="oldpass" required><br/>
-        <label for="newpass">New password:</label>
-        <input type="password" id="newpass" name="newpass" required><br/>
-        <label for="confirmpass">Retype new password:</label>
-        <input type="password" id="confirmpass" required><br/>
-        <br/>
+        <label for="oldpass">Old password:&nbsp;</label>
+        <input type="password" id="oldpass" name="oldpass" required><br/><br/>
+        <label for="newpass">New password:&nbsp;</label>
+        <input type="password" id="newpass" name="newpass" required><br/><br/>
+        <label for="confirmpass">Retype new password:&nbsp;</label>
+        <input type="password" id="confirmpass" required><br/><br/>
         <button type="submit">Submit</button>
     </form>
+    <br/>
+</div>
+<div class="navbox">
+    <b>Navigation</b>
+    <ul>
+        <li><a href="/">Main page</a></li>
+        <li><a href="/home">My account</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/chdn.html">Change display name</a></li>
+        <li><a href="/chpw.html">Change password</a></li>
+    </ul>
 </div>
 </body>
 </html>

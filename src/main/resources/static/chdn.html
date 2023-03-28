@@ -19,21 +19,26 @@
 </div>
 <h1>&nbsp;</h1>
 <hr width=80% style="border:dashed 2px"/>
-<table style="border:0px; width:100%">
-    <tr>
-        <td style="width:19%"></td>
-        <td align="center" style="width:62%;">
-            <div style="background:rgba(0,0,0,.3); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); padding:30px">
-                <h1>Change display name</h1>
-                <form action="/chdn" method="post">
-                    <label for="newname">Enter your new display name:</label><br/><br/>
-                    <input id="newname" name="displayname" type="text" required=""/><br/><br/>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        </td>
-        <td style="width:19%;"></td>
-    </tr>
-</table>
+<div class="contentbox">
+    <h1>Change display name</h1>
+    <hr/>
+    <br/>
+    <form action="/chdn" method="post">
+        <label for="newname">Enter your new display name:</label><br/><br/>
+        <input id="newname" name="displayname" type="text" required/><br/><br/>
+        <button type="submit">Submit</button>
+    </form>
+    <br/>
+</div>
+<div class="navbox">
+    <b>Navigation</b>
+    <ul>
+        <li><a href="/">Main page</a></li>
+        <li><a href="/home">My account</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/chdn.html">Change display name</a></li>
+        <li><a href="/chpw.html">Change password</a></li>
+    </ul>
+</div>
 </body>
 </html>
