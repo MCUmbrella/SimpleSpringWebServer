@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.floatationdevice.simplespringwebserver.SessionManager;
 import vip.floatationdevice.simplespringwebserver.UserManager;
@@ -16,7 +16,7 @@ public class UserController
 {
     private final static Logger l = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping("/chdn") // change display name
+    @PostMapping("/chdn") // change display name
     public String chdnAction(HttpServletRequest request, HttpServletResponse response, @RequestParam(name = "displayname") String displayName, Model model)
     {
         String sessionId = SessionManager.getSessionId(request.getCookies());
@@ -47,7 +47,7 @@ public class UserController
         return "msg";
     }
 
-    @RequestMapping("/chpw") // change password
+    @PostMapping("/chpw") // change password
     public String chpwAction(HttpServletRequest request, HttpServletResponse response, @RequestParam(name = "oldpass") String oldPass, @RequestParam(name = "newpass") String newPass, Model model)
     {
         String sessionId = SessionManager.getSessionId(request.getCookies());
