@@ -21,7 +21,6 @@ public class UserHomePageInterceptor implements HandlerInterceptor
         {
             if(SessionManager.hasSession(SessionManager.getSessionId(request.getCookies())))
                 return true;
-            l.warn("Unauthorized access to /home: addr=" + request.getRemoteAddr());
             response.sendRedirect("/login.html");
             return false;
         }
