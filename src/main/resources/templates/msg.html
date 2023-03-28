@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>SimpleSpringWebServer</title>
+    <title th:text="${TITLE}"></title>
     <link rel="preload" href="/std.css" as="style"/>
     <link type="text/css" rel="stylesheet" href="/std.css"/>
 </head>
@@ -10,7 +10,7 @@
 <div class="navbar">
     <table>
         <tr>
-            <td width="50%"><h2>&nbsp;<a href="/" style="color:white">PASSWORD</a></h2></td>
+            <td width="50%"><h2>&nbsp;<a href="/" style="color:white">SYSTEM MESSAGE</a></h2></td>
             <td style="text-align:right"><a href="/home">(username)</a></td>
         </tr>
     </table>
@@ -18,10 +18,12 @@
 <h1>&nbsp;</h1>
 <hr width=80% style="border:dashed 2px"/>
 <div class="contentbox">
-    <h1>SUCCESS</h1>
+    <h1 th:text="${HEADING}"></h1>
     <hr/>
-    <h2>Your password has been changed</h2>
-    <button onclick="window.location.href='/home'">OK</button>
+    <h2 th:text="${DETAILS}"></h2>
+    <button onclick="window.location.href='/'">Main page</button>&nbsp;&nbsp;
+    <button onclick="window.history.back();">Previous page</button>
+    <br/><br/>
 </div>
 <div class="navbox">
     <b>Navigation</b>

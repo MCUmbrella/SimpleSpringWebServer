@@ -21,26 +21,30 @@ public class UserController
     {
         String sessionId = SessionManager.getSessionId(request.getCookies());
         String userId = SessionManager.getUserId(sessionId);
+        model.addAttribute("TITLE", "SimpleSpringWebServer");
+        response.setStatus(400);
         if(SessionManager.hasSession(sessionId) && UserManager.hasUser(userId))
-        {
-            if(!displayName.isEmpty())
+        { // valid session
+            if(!displayName.isBlank()) // valid display name
             {
                 UserManager.setDisplayName(userId, displayName);
                 l.info("User display name changed: user=" + userId + ", name=" + displayName);
-                model.addAttribute("NEW_NAME", displayName);
-                return "chdnSuccess";
+                response.setStatus(200);
+                model.addAttribute("HEADING", "SUCCESS");
+                model.addAttribute("DETAILS", "Your display name has been changed to: " + displayName);
             }
             else
             {
-                model.addAttribute("REASON", "New display name is empty");
-                return "chdnFail";
+                model.addAttribute("HEADING", "FAILED");
+                model.addAttribute("DETAILS", "New display name is empty");
             }
         }
         else
         {
-            model.addAttribute("REASON", "Invalid session");
-            return "chdnFail";
+            model.addAttribute("HEADING", "FAILED");
+            model.addAttribute("DETAILS", "Invalid session");
         }
+        return "msg";
     }
 
     @RequestMapping("/chpw") // change password
@@ -48,24 +52,37 @@ public class UserController
     {
         String sessionId = SessionManager.getSessionId(request.getCookies());
         String userId = SessionManager.getUserId(sessionId);
+        model.addAttribute("TITLE", "SimpleSpringWebServer");
+        response.setStatus(400);
         if(SessionManager.hasSession(sessionId) && UserManager.hasUser(userId))
-        {
-            if(UserManager.verify(userId, oldPass))
+        { // valid session
+            if(!newPass.isBlank()) // valid new password
             {
-                UserManager.putUser(userId, newPass, UserManager.getDisplayName(userId));
-                l.info("User changed password: user=" + userId + ", password=" + newPass);
-                return "chpwSuccess";
+                if(UserManager.verify(userId, oldPass)) // valid old password
+                {
+                    UserManager.putUser(userId, newPass, UserManager.getDisplayName(userId));
+                    l.info("User changed password: user=" + userId + ", password=" + newPass);
+                    response.setStatus(200);
+                    model.addAttribute("HEADING", "SUCCESS");
+                    model.addAttribute("DETAILS", "Your password has been changed");
+                }
+                else
+                {
+                    model.addAttribute("HEADING", "FAILED");
+                    model.addAttribute("DETAILS", "Incorrect old password");
+                }
             }
             else
             {
-                model.addAttribute("REASON", "Incorrect old password");
-                return "chpwFail";
+                model.addAttribute("HEADING", "FAILED");
+                model.addAttribute("DETAILS", "New password is empty");
             }
         }
         else
         {
-            model.addAttribute("REASON", "Invalid session");
-            return "chpwFail";
+            model.addAttribute("HEADING", "FAILED");
+            model.addAttribute("DETAILS", "Invalid session");
         }
+        return "msg";
     }
 }
